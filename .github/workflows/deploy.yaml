@@ -29,3 +29,4 @@ jobs:
           helm upgrade --install mi-app ./charts/mi-app \
             --namespace nginx-epn \
             --create-namespace
+            --kubeconfig ~/.kube/config
