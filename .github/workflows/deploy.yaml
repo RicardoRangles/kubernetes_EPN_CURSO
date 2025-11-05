@@ -17,7 +17,7 @@ jobs:
       - name: ⚙️ Set up kubectl
         uses: azure/setup-kubectl@v3
         with:
-          version: '1.29.0'
+          version: 'latest'
 
       - name: 🔐 Configure kubeconfig
         run: |
