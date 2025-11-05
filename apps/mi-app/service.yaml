@@ -1,13 +1,11 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
   name: mi-app
-  labels:
-    app: mi-app
 spec:
-  replicas: 1
   selector:
-    matchLabels:
-      app: mi-app
-  template:
-    metadata:
+    app: mi-app
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP
