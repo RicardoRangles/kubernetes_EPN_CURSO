@@ -1,0 +1,31 @@
+name: 🚀 Deploy to Rancher (Kubernetes)
+
+on:
+  push:
+    branches:
+      - main
+      - master  # por si usas master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧾 Checkout code
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Set up kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: '1.29.0'
+
+      - name: 🔐 Configure kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG_CONTENT }}" > ~/.kube/config
+
+      - name: 🚢 Deploy Helm chart to nginx-epn
+        run: |
+          helm upgrade --install mi-app ./charts/mi-app \
+            --namespace nginx-epn \
+            --create-namespace
